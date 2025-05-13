@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+            <style>.lw {
+    font-size: 60px;
+}</style>
+        </head>
+        <body>
+            
+  
+    <meta http-equiv="Content-Security-Policy" content="default-src chrome:; object-src 'none'">
+    <meta name="color-scheme" content="light dark">
+    <!-- Keep original CSS, JS for structure, but override appearance/behavior with our script -->
+    <link rel="stylesheet" href="chrome://browser/skin/blockedSite.css" type="text/css" media="all">
+    <link rel="icon" id="favicon" href="chrome://global/skin/icons/blocked.svg">
+  <title data-l10n-id="safeb-blocked-phishing-page-title">DANGER O! FAKE WEBSITE WAHALA!</title>
+  
+    <div id="errorPageContainer" class="container">
+      <!-- Error Title -->
+      <div id="errorTitle" class="title">
+        <h1 class="title-text" id="errorTitleText" data-l10n-id="safeb-blocked-phishing-page-title">SAFE O! REAL WEBSITE NO WAHALA!</h1>
+      </div>
+
+      <div id="errorLongContent">
+        <!-- Short Description -->
+        <div id="errorShortDesc">
+          <p id="errorShortDescText" data-l10n-id="safeb-blocked-phishing-page-short-desc">Our security system don scan <b>this site</b>. From wetin we check, we no see any deceptive content, malware, or other security risks were detected, confirming it as a safe and secure destination.</p>
+        </div>
+
+        <!-- Advisory -->
+        <div id="advisoryDesc">
+          
+        </div>
+
+        <!-- Action buttons -->
+        <div id="buttons" class="button-container">
+          <!-- Commands handled in browser.js -->
+          <button id="goBackButton" class="primary" data-l10n-id="safeb-palm-accept-label">Continue</button>
+          
+        </div>
+      </div>
+      <div id="errorDescriptionContainer" hidden="true">
+        <!-- Error Descriptions Handled in blockedSite.js -->
+        <div class="error-description" id="errorLongDesc">
+          <p id="errorInnerDescription" data-l10n-id="safeb-blocked-phishing-page-error-desc-override"><span id="error_desc_sitename" data-l10n-name="sitename" class="sitename"></span> - pesin don report am say na <a id="error_desc_link" data-l10n-name="error_desc_link">site wey dem dey use for wayo</a>. You fit <a id="report_detection" data-l10n-name="report_detection" href="https://safebrowsing.google.com/safebrowsing/report_error/?tpl=mozilla">talk if you feel say dem make mistake</a> or you fit just <a id="ignore_warning_link" data-l10n-name="ignore_warning_link">yab the warning pata pata</a> and continue enter dis site wey get wahala.</p>
+          <p id="learn_more" data-l10n-id="safeb-blocked-phishing-page-learn-more">If you wan know more <a id="learn_more_link" data-l10n-name="learn_more_link" href="https://www.antiphishing.org//">gist about dis wayo wayo and phishing attack dem</a>, go check <a id="learn_more_link" data-l10n-name="learn_more_link" href="https://www.antiphishing.org//">www.antiphishing.org</a>. If you wan know more <a id="firefox_support" data-l10n-name="firefox_support" href="https://support.mozilla.org/1/firefox/138.0.1/Linux/et/phishing-malware">tori about how Firefox dey use him power block dis kain wayo sites and bad bad virus wey dem call malware</a>, go check <a id="firefox_support" data-l10n-name="firefox_support" href="https://support.mozilla.org/1/firefox/138.0.1/Linux/et/phishing-malware">support.mozilla.org</a>.</p>
+        </div>
+      </div>
+    </div>
+  
+  
+<script>document.addEventListener('DOMContentLoaded',()=>{const initialDelay=2500;setTimeout(()=>{rewriteAndAnimate()},initialDelay)});async function rewriteAndAnimate(){const elementsToRewrite=[{selector:'#errorTitleText',originalContent:document?.querySelector('#errorTitleText').textContent,newContent:'SAFE O! REAL WEBSITE NO WAHALA!'},{selector:'#errorShortDescText',originalContent:document?.querySelector('#errorShortDescText').textContent,newContent:'Our security system don scan <b>this site</b>. From wetin we check, we no see any deceptive content, malware, or other security risks were detected, confirming it as a safe and secure destination.'},{selector:'#goBackButton',originalContent:document?.querySelector('#goBackButton').textContent,newContent:'Continue'},{selector:'#seeDetailsButton',originalContent:document?.querySelector('#seeDetailsButton').textContent,newContent:''},];const selectionHighlightColor='rgba(173, 216, 230, 0.6)';const selectionSpeed=60;const replaceDelay=700;const elementStaggerDelay=395;for(const item of elementsToRewrite){const element=document?.querySelector(item.selector);if(element&&item.originalContent){await animateBlockRewrite(element,item.originalContent,item.newContent,selectionHighlightColor,selectionSpeed,replaceDelay);await new Promise(resolve=>setTimeout(resolve,elementStaggerDelay))}else{console.warn(`Element not found or original content missing for selector: ${item.selector}`)}}
+changeColorGradually()}
+function animateBlockRewrite(element,originalContent,targetContent,selectionColor,selectionSpeed,replaceDelay){return new Promise(resolve=>{let currentIndex=0;const totalLength=originalContent.length;const stepSize=Math.max(1,Math.floor(totalLength/(1500/selectionSpeed)));const selectionInterval=setInterval(()=>{if(currentIndex>=totalLength){clearInterval(selectionInterval);element.innerHTML=`<span style="background-color: ${selectionColor}; color: inherit; white-space: pre-wrap;">${originalContent}</span>`;setTimeout(()=>{const originalTagName=element.tagName.toLowerCase();if(originalTagName==='h1'||originalTagName==='p'||originalTagName==='button'||originalTagName==='title'){element.innerHTML=targetContent}else{element.innerHTML=targetContent}
+if(element.id=="seeDetailsButton"){element.remove()}
+resolve()},replaceDelay);return}
+const selectedPart=originalContent.substring(0,currentIndex);const remainingPart=originalContent.substring(currentIndex);element.innerHTML=`<span style="background-color: ${selectionColor}; color: inherit; white-space: pre-wrap;">${selectedPart}</span>${remainingPart}`;currentIndex+=stepSize},selectionSpeed)})}
+function changeColorGradually(){const rootElement=document.documentElement;const startColor={r:164,g:0,b:15};const endColor={r:19,g:99,b:51};rootElement.style.setProperty('--in-content-page-background',`rgb(${startColor.r}, ${startColor.g}, ${startColor.b})`);const steps=25;let currentStep=0;const colorInterval=setInterval(()=>{if(currentStep>steps){clearInterval(colorInterval);rootElement.style.setProperty('--in-content-page-background',`rgb(${endColor.r}, ${endColor.g}, ${endColor.b})`);return}
+const ratio=currentStep/steps;const easedRatio=0.5-0.5*Math.cos(Math.PI*ratio);const r=Math.round(startColor.r+(endColor.r-startColor.r)*easedRatio);const g=Math.round(startColor.g+(endColor.g-startColor.g)*easedRatio);const b=Math.round(startColor.b+(endColor.b-startColor.b)*easedRatio);rootElement.style.setProperty('--in-content-page-background',`rgb(${r}, ${g}, ${b})`);currentStep++},30)}</script>
+
+            <script></script>
+        
+    
+</body><!-- Original script -->
